@@ -23,7 +23,7 @@ public class Bar {
   
     @SneakyThrows
     public void setCountry(String country) {
-      boolean isValid = country.matches("\\p{L}+");
+      boolean isValid = country.matches(REGEX);
       if (!isValid) {
         throw new Exception("Only latin");
       }
