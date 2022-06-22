@@ -13,9 +13,26 @@ import java.util.Set;
 @Document(collection = Bar.collection)
 public class Bar {
     public static final String collection = "bars";
+    private static final String REGEX = "[A-Za-z]+";
+  
     @Indexed(unique = true)
     private String name;
     private String country;
     private Set<String> workers;
     private Set<String> places;
+  
+    @SneakyThrows
+    public void setCountry(String country) {
+      boolean isValid = country.matches("\\p{L}+");
+      if (!isValid) {
+        throw new Exception("Only latin");
+      }
+      if (country.toLowerCase(Locale.ROOT).equals("russia") 
+          || country.toLowerCase(Locale.ROOT).equals("ruzzia") 
+          || country.toLowerCase(Locale.ROOT).equals("kazaptstan")) {
+        throw new Exception("Go fuck yourself, pidori");
+      }
+    }
+  this.country = country;
+  log.info("Welcom, friens from "+country);
 }
