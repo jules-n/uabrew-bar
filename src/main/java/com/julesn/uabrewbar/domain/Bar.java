@@ -34,5 +34,5 @@ public class Bar {
       }
     }
   this.country = country;
-  log.info("Welcom, friens from "+country);
+  log.info("Welcome, friens from "+country);
 }
