@@ -20,7 +20,7 @@ public class Order {
     private String _id;
     @Indexed(unique = true)
     private int number;
-    private STATUS status;
+    private Status status;
     private String place;
     private String bar;
     private Set<String> rights;
