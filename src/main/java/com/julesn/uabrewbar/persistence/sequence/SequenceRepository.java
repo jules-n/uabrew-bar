@@ -1,4 +1,4 @@
-package com.julesn.uabrewbar.persistence;
+package com.julesn.uabrewbar.persistence.sequence;
 
 import com.julesn.uabrewbar.domain.Sequence;
 import org.springframework.data.mongodb.repository.Aggregation;
