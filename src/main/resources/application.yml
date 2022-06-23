@@ -9,3 +9,8 @@ spring:
       username: ${MONGODB_USER:Kharkiv_student}
       password: ${MONGODB_PASS:Glory_to_Ukraine}
       autoIndexCreation: true
+uabrew:
+  warehouse:
+    host: ${UABREW_WAREHOUSE_HOST:localhost}
+    port: ${UABREW_WAREHOUSE_PORT:9096}
+    
