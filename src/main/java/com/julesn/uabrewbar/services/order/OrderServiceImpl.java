@@ -68,6 +68,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> getOrdersByUser(String bar, String user) {
+        Map<String, Object> criteria = new HashMap<>();
+        criteria.put("bar", bar);
+        criteria.put("client", user);
+        return orderRepository.getListByCriteria(criteria);
+    }
+
+    @Override
     public List<Order> getOrdersByStatus(String bar, Status status) {
         Map<String, Object> criteria = new HashMap<>();
         criteria.put("bar", bar);
@@ -83,7 +91,7 @@ public class OrderServiceImpl implements OrderService {
                     positions.put(k.getName(),v);
                 }
         );
-        Boolean isEverythingIsEnough = restExchanger.fetch(warehouseHost, warehousePort, Boolean.class, List.of(order.getBar()), positions);
+        Boolean isEverythingIsEnough = restExchanger.fetch(warehouseHost, warehousePort, Boolean.class, List.of("positions", order.getBar()), positions);
         if (!isEverythingIsEnough.booleanValue()) {
             throw new Exception("Not enough components");
         }

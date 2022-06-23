@@ -10,6 +10,8 @@ public interface OrderService {
 
     Order getOrderByNumber(String bar, Long number);
 
+    List<Order> getOrdersByUser(String bar, String user);
+
     List<Order> getOrdersByStatus(String bar, Status status);
 
     boolean createOrder(Order order) throws Exception;
