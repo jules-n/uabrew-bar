@@ -9,8 +9,33 @@ spring:
       username: ${MONGODB_USER:Kharkiv_student}
       password: ${MONGODB_PASS:Glory_to_Ukraine}
       autoIndexCreation: true
+  kafka:
+    properties:
+      sasl:
+        jaas:
+          config: org.apache.kafka.common.security.scram.ScramLoginModule required username="${CLOUDKARAFKA_USERNAME:h8672hva}" password="${CLOUDKARAFKA_PASSWORD:KhLosahXyzLQeAxMvhyIPiU0jmKb8yVT}";
+        mechanism: SCRAM-SHA-256
+      security:
+        protocol: SASL_SSL
+
+    bootstrap-servers: sulky-01.srvs.cloudkafka.com:9094
+    producer:
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      auto-offset-reset: latest
+      group-id: menu-group
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: sample.kafka
+    cloud:
+      compatibility-verifier:
+        enabled: false
+  cloudkarafka:
+    status-topic: h8672hva-order-status
 uabrew:
   warehouse:
     host: ${UABREW_WAREHOUSE_HOST:localhost}
     port: ${UABREW_WAREHOUSE_PORT:9096}
-    

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Locale;
 
 @RestController
@@ -29,8 +30,8 @@ public class BarController {
     public ResponseEntity register(@RequestBody Bar bar) {
        try {
            isValid(bar);
-           barService.registerBar(bar);
-           return ResponseEntity.ok().build();
+           return barService.registerBar(bar) ?
+           ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
        } catch (Exception ex){
            return ResponseEntity.badRequest().body(ex);
        }
@@ -40,8 +41,8 @@ public class BarController {
     public ResponseEntity update(@PathVariable("bar") String barName, @RequestBody Bar bar) {
         try {
             isValid(bar);
-            barService.updateDarData(barName, bar);
-            return ResponseEntity.ok().build();
+            return barService.updateBarData(barName, bar) ?
+            ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
         } catch (Exception ex){
             return ResponseEntity.badRequest().body(ex);
         }
@@ -59,8 +60,13 @@ public class BarController {
         return result ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
-    @SneakyThrows
-    private boolean isValid(Bar bar) {
+    @PutMapping("{bar}/addPlace")
+    public ResponseEntity addPlace(@PathVariable("bar") String barName, @RequestAttribute String place) {
+        var result = barService.addPlace(barName, place);
+        return result ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
+    }
+
+    private boolean isValid(Bar bar) throws Exception{
         final String REGEX = "[A-Za-z]+";
         var country = bar.getCountry();
         boolean isValid = country.matches(REGEX);
@@ -74,5 +80,10 @@ public class BarController {
         }
         log.info("Welcome, friends from "+country);
         return true;
+    }
+
+    @GetMapping("list")
+    ResponseEntity<List<Bar>> getAll() {
+        return ResponseEntity.ok(barService.getAll());
     }
 }

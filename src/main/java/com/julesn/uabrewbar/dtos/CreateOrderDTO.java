@@ -1,7 +1,6 @@
 package com.julesn.uabrewbar.dtos;
 
 import com.julesn.uabrewbar.domain.Position;
-import com.julesn.uabrewbar.domain.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,13 +13,9 @@ import java.util.Map;
 @AllArgsConstructor
 @Data
 @Builder
-public class Order {
-    private Long number;
-    private Status status;
+public class CreateOrderDTO {
     private String place;
-    private String bar;
     @Nullable
     private String client;
     private Map<Position, Integer> positions;
-    private float toPay;
 }

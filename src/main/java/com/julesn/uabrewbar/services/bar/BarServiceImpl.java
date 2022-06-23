@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -27,7 +28,7 @@ public class BarServiceImpl implements BarService {
     }
 
     @Override
-    public boolean updateDarData(String name, Bar bar) {
+    public boolean updateBarData(String name, Bar bar) {
         return barRepository.update(bar, name);
     }
 
@@ -55,6 +56,20 @@ public class BarServiceImpl implements BarService {
         var workers = barToUpdate.getWorkers();
         workers.add(id);
         barToUpdate.setWorkers(workers);
+        return barRepository.update(barToUpdate, bar);
+    }
+
+    @Override
+    public List<Bar> getAll() {
+        return barRepository.findAll();
+    }
+
+    @Override
+    public boolean addPlace(String bar, String place) {
+        var barToUpdate = getBarByName(bar);
+        var places = barToUpdate.getPlaces();
+        places.add(place);
+        barToUpdate.setWorkers(places);
         return barRepository.update(barToUpdate, bar);
     }
 }

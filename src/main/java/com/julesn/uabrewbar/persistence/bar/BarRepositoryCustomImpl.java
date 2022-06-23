@@ -1,18 +1,20 @@
 package com.julesn.uabrewbar.persistence.bar;
 
 import com.julesn.uabrewbar.domain.Bar;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 
 import java.util.Map;
 
 public class BarRepositoryCustomImpl implements BarRepositoryCustom {
 
-    @Setter(onMethod_ = {@Autowired})
     private MongoTemplate mongoTemplate;
+
+    public BarRepositoryCustomImpl(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
+    }
 
     @Override
     public Bar getBarByCriteria(Map<String, Object> criteria) {
@@ -30,6 +32,14 @@ public class BarRepositoryCustomImpl implements BarRepositoryCustom {
 
     @Override
     public boolean update(Bar bar, String name) {
-        return false;
+        var query = new Query();
+        query.addCriteria(new Criteria("name").is(bar));
+        Update update = new Update();
+        update.set("name", bar.getName());
+        update.set("workers", bar.getWorkers());
+        update.set("country", bar.getCountry());
+        update.set("places", bar.getPlaces());
+        var result = mongoTemplate.updateFirst(query, update, Bar.class, Bar.collection);
+        return result.wasAcknowledged();
     }
 }

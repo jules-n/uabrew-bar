@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.lang.Nullable;
 
-import java.util.Set;
 import java.util.Map;
 
 @NoArgsConstructor
@@ -19,10 +19,12 @@ public class Order {
     public static final String COLLECTION = "orders";
     private String _id;
     @Indexed(unique = true)
-    private int number;
+    private Long number;
     private Status status;
     private String place;
     private String bar;
-    private Set<String> rights;
-    private Map<String, Integer> positions;
+    @Nullable
+    private String client;
+    private Map<Position, Integer> positions;
+    float toPay;
 }
