@@ -17,6 +17,5 @@ public class Bar {
     @Indexed(unique = true)
     private String name;
     private String country;
-    private Set<String> workers;
     private Set<String> places;
 }

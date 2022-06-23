@@ -54,12 +54,6 @@ public class BarController {
         return result ? ResponseEntity.ok("Good Luck, " + bar) : ResponseEntity.badRequest().build();
     }
 
-    @PutMapping("{bar}/addWorker")
-    public ResponseEntity addWorker(@PathVariable("bar") String barName, @RequestAttribute String _id) {
-        var result = barService.addWorker(barName, _id);
-        return result ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
-    }
-
     @PutMapping("{bar}/addPlace")
     public ResponseEntity addPlace(@PathVariable("bar") String barName, @RequestAttribute String place) {
         var result = barService.addPlace(barName, place);

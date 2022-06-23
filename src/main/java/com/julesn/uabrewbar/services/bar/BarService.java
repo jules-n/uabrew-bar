@@ -10,7 +10,6 @@ public interface BarService {
     boolean updateBarData(String name, Bar bar);
     boolean registerBar(Bar bar);
     boolean leaveTheSystem(String name);
-    boolean addWorker(String bar, String id);
     List<Bar> getAll();
     boolean addPlace(String bar, String place);
 }

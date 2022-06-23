@@ -36,7 +36,6 @@ public class BarRepositoryCustomImpl implements BarRepositoryCustom {
         query.addCriteria(new Criteria("name").is(bar));
         Update update = new Update();
         update.set("name", bar.getName());
-        update.set("workers", bar.getWorkers());
         update.set("country", bar.getCountry());
         update.set("places", bar.getPlaces());
         var result = mongoTemplate.updateFirst(query, update, Bar.class, Bar.collection);

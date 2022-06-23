@@ -51,15 +51,6 @@ public class BarServiceImpl implements BarService {
     }
 
     @Override
-    public boolean addWorker(String bar, String id) {
-        var barToUpdate = getBarByName(bar);
-        var workers = barToUpdate.getWorkers();
-        workers.add(id);
-        barToUpdate.setWorkers(workers);
-        return barRepository.update(barToUpdate, bar);
-    }
-
-    @Override
     public List<Bar> getAll() {
         return barRepository.findAll();
     }
@@ -69,7 +60,7 @@ public class BarServiceImpl implements BarService {
         var barToUpdate = getBarByName(bar);
         var places = barToUpdate.getPlaces();
         places.add(place);
-        barToUpdate.setWorkers(places);
+        barToUpdate.setPlaces(places);
         return barRepository.update(barToUpdate, bar);
     }
 }
