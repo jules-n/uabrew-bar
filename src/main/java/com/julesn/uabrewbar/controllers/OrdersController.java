@@ -1,6 +1,7 @@
 package com.julesn.uabrewbar.controllers;
 
 import com.julesn.uabrewbar.domain.Order;
+import com.julesn.uabrewbar.domain.Position;
 import com.julesn.uabrewbar.domain.Status;
 import com.julesn.uabrewbar.dtos.CreateOrderDTO;
 import com.julesn.uabrewbar.services.order.OrderService;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
@@ -102,7 +104,10 @@ public class OrdersController {
     }
 
     @GetMapping("{bar}/{client}")
-    public ResponseEntity<List<Order>> getClientsOrders(@PathVariable("bar") String bar, @PathVariable("client") String client) {
-        return ResponseEntity.ok(orderService.getOrdersByUser(bar, client));
+    public ResponseEntity<Set<String>> getClientsOrders(@PathVariable("bar") String bar, @PathVariable("client") String client) {
+        Set<String> positions = orderService.getOrdersByUser(bar, client)
+                .stream().map(order -> order.getPositions().keySet()).flatMap(Set::stream)
+                .map(Position::getName).collect(Collectors.toSet());
+        return ResponseEntity.ok(positions);
     }
 }
