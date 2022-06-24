@@ -100,4 +100,9 @@ public class OrdersController {
         return orderService.transferMoney(number, bar, transaction) ?
                 ResponseEntity.ok("Thank you") : ResponseEntity.badRequest().body("Not enough");
     }
+
+    @GetMapping("{bar}/{client}")
+    public ResponseEntity<List<Order>> getClientsOrders(@PathVariable("bar") String bar, @PathVariable("client") String client) {
+        return ResponseEntity.ok(orderService.getOrdersByUser(bar, client));
+    }
 }
