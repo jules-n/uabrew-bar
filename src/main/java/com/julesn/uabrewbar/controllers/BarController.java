@@ -70,7 +70,7 @@ public class BarController {
         if (country.toLowerCase(Locale.ROOT).equals("russia")
                 || country.toLowerCase(Locale.ROOT).equals("ruzzia")
                 || country.toLowerCase(Locale.ROOT).equals("kazaptstan")) {
-            throw new Exception("Go fuck yourself, pidori");
+            throw new Exception("Go fuck yourself");
         }
         log.info("Welcome, friends from "+country);
         return true;
